@@ -46,7 +46,7 @@ function initEasterEgg() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  loadComponent('assets/partials/header.html', 'header-placeholder', setCurrentNavState);
-  loadComponent('assets/partials/footer.html', 'footer-placeholder');
+  loadComponent('/assets/partials/header.html', 'header-placeholder', setCurrentNavState);
+  loadComponent('/assets/partials/footer.html', 'footer-placeholder');
   initEasterEgg();
 });
