@@ -8,8 +8,8 @@
   --text:    #e8e8e0;
   --muted:   rgba(232,232,224,0.62);
   --dim:     rgba(232,232,224,0.35);
-  --accent:  #b6ff00;
-  --accent2: #ffffff;
+  --accent:  #c7ff00;
+  --accent2: #f1efe6;
   --max:     860px;
 }
 
@@ -512,4 +512,24 @@ main {
     width: 100%;
     justify-content: flex-start;
   }
+}
+
+
+/* Meaner palette pass */
+.btn--primary {
+  background: transparent;
+  color: var(--accent);
+}
+.btn--primary:hover {
+  background: var(--accent);
+  color: #080808;
+}
+.link-block:hover,
+.site-nav a:hover,
+.site-nav a[aria-current="page"],
+.footer-nav a:hover,
+.read-more:hover,
+.rant-title a:hover,
+.back-link:hover {
+  color: var(--accent);
 }
