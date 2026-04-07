@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://nofucksgiven.org/</loc>
-  </url>
-  <url>
-    <loc>https://nofucksgiven.org/about</loc>
-  </url>
-  <url>
-    <loc>https://nofucksgiven.org/links</loc>
-  </url>
+  <url><loc>https://nofucksgiven.org/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>https://nofucksgiven.org/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nofucksgiven.org/links</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://nofucksgiven.org/rants/the-cult-has-no-clothes</loc><changefreq>never</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nofucksgiven.org/rants/stop-calling-it-patriotism</loc><changefreq>never</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nofucksgiven.org/rants/accountability-died-and-nobody-noticed</loc><changefreq>never</changefreq><priority>0.7</priority></url>
+  <url><loc>https://nofucksgiven.org/rants/the-media-isnt-the-enemy</loc><changefreq>never</changefreq><priority>0.7</priority></url>
 </urlset>
