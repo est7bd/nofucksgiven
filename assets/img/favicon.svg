@@ -1,5 +1,6 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="No Fucks Given icon">
-  <rect width="64" height="64" fill="#050505"/>
-  <rect x="8" y="8" width="48" height="48" rx="3" fill="none" stroke="#b6ff2b" stroke-width="4"/>
-  <rect x="20" y="20" width="24" height="24" rx="3" fill="#b6ff2b"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="4" fill="#080808"/>
+  <rect x="8" y="8" width="4" height="48" fill="#3b82f6"/>
+  <path d="M20 47V17h8l10 17V17h7v30h-8L27 30v17z" fill="#f2f2ec"/>
+  <rect x="47" y="16" width="5" height="32" fill="#e8c547"/>
 </svg>
