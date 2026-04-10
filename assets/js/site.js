@@ -1,3 +1,4 @@
+/* ── PARTIALS ── */
 function loadComponent(url, targetId, callback) {
   fetch(url)
     .then((r) => r.text())
@@ -24,7 +25,6 @@ function initNFGMode() {
   const isActive = localStorage.getItem(STORAGE_KEY) === 'on';
   if (isActive) document.body.classList.add('nfg-mode');
 
-  // Wait for header to load, then wire toggle
   const wireToggle = () => {
     const btn = document.getElementById('nfg-toggle');
     if (!btn) return;
@@ -36,11 +36,99 @@ function initNFGMode() {
     });
   };
 
-  // Header is injected via fetch — poll briefly
   const poll = setInterval(() => {
     if (document.getElementById('nfg-toggle')) { clearInterval(poll); wireToggle(); }
   }, 50);
   setTimeout(() => clearInterval(poll), 3000);
+}
+
+/* ── TAG FILTER ── */
+function initTagFilter() {
+  const btns  = document.querySelectorAll('.tag-filter__btn');
+  const items = document.querySelectorAll('.rant-item[data-tag]');
+  const count = document.querySelector('.rants-archive__count');
+  const total = items.length;
+  if (!btns.length) return;
+
+  btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      btns.forEach(b => b.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      const filter = btn.dataset.filter;
+
+      let visible = 0;
+      items.forEach(item => {
+        const show = filter === 'all' || item.dataset.tag === filter;
+        item.hidden = !show;
+        if (show) visible++;
+      });
+
+      if (count) {
+        if (filter === 'all') {
+          count.textContent = `${total} posts · updated when something pisses me off`;
+        } else {
+          const label = btn.textContent.trim();
+          count.textContent = `${visible} post${visible !== 1 ? 's' : ''} tagged "${label}"`;
+        }
+      }
+    });
+  });
+}
+
+/* ── SEARCH ── */
+function initSearch() {
+  const input   = document.getElementById('search-input');
+  const results = document.getElementById('search-results');
+  const status  = document.getElementById('search-status');
+  if (!input || !results || !window.NFG_POSTS) return;
+
+  const posts = window.NFG_POSTS;
+
+  function highlight(text, query) {
+    if (!query) return text;
+    const escaped = query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    return text.replace(new RegExp(`(${escaped})`, 'gi'),
+      '<mark class="search-highlight">$1</mark>');
+  }
+
+  function render(query) {
+    const q = query.trim().toLowerCase();
+
+    if (!q) {
+      results.innerHTML = '';
+      status.innerHTML  = '';
+      return;
+    }
+
+    const matches = posts.filter(p =>
+      p.title.toLowerCase().includes(q) ||
+      p.tag.toLowerCase().includes(q)   ||
+      p.excerpt.toLowerCase().includes(q)
+    );
+
+    if (!matches.length) {
+      results.innerHTML = `<p class="search-no-results">Nothing found for "<span style="color:var(--accent)">${query}</span>". Try different words.</p>`;
+      status.innerHTML  = '';
+      return;
+    }
+
+    status.innerHTML = `<span>${matches.length}</span> result${matches.length !== 1 ? 's' : ''} for "<span>${query}</span>"`;
+
+    results.innerHTML = matches.map(p => `
+      <article class="rant-item">
+        <p class="rant-meta"><span class="tag">${highlight(p.tag, query)}</span> ${p.date}</p>
+        <h2 class="rant-title"><a href="/rants/${p.slug}">${highlight(p.title, query)}</a></h2>
+        <p class="rant-excerpt"><span class="rant-excerpt__default">${highlight(p.excerpt, query)}</span></p>
+        <a class="read-more" href="/rants/${p.slug}">Keep reading →</a>
+      </article>`).join('');
+  }
+
+  input.addEventListener('input', () => render(input.value));
+
+  // Focus search if ?q= param present
+  const q = new URLSearchParams(window.location.search).get('q');
+  if (q) { input.value = q; render(q); }
+  input.focus();
 }
 
 /* ── EASTER EGG ── */
@@ -71,6 +159,7 @@ function initEasterEgg() {
   });
 }
 
+/* ── INIT ── */
 document.addEventListener('DOMContentLoaded', () => {
   loadComponent('/assets/partials/header.html', 'header-placeholder', () => {
     setCurrentNavState();
@@ -78,4 +167,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   loadComponent('/assets/partials/footer.html', 'footer-placeholder');
   initEasterEgg();
+  initTagFilter();
+  initSearch();
 });
