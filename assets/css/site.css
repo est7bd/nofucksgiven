@@ -240,7 +240,7 @@ img { max-width: 100%; display: block; }
 
 /* LINKS */
 .outlinks { padding: 3rem 0 5rem; }
-.outlinks h2 {
+.outlinks h2, .outlinks-title {
   font-family: 'Bebas Neue', Impact, sans-serif;
   font-size: 1.4rem;
   letter-spacing: 0.1em;
