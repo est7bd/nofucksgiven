@@ -18,6 +18,32 @@ function setCurrentNavState() {
   });
 }
 
+/* ── NFG MODE ── */
+function initNFGMode() {
+  const STORAGE_KEY = 'nfg-mode';
+  const isActive = localStorage.getItem(STORAGE_KEY) === 'on';
+  if (isActive) document.body.classList.add('nfg-mode');
+
+  // Wait for header to load, then wire toggle
+  const wireToggle = () => {
+    const btn = document.getElementById('nfg-toggle');
+    if (!btn) return;
+    if (isActive) btn.classList.add('is-active');
+    btn.addEventListener('click', () => {
+      const active = document.body.classList.toggle('nfg-mode');
+      btn.classList.toggle('is-active', active);
+      localStorage.setItem(STORAGE_KEY, active ? 'on' : 'off');
+    });
+  };
+
+  // Header is injected via fetch — poll briefly
+  const poll = setInterval(() => {
+    if (document.getElementById('nfg-toggle')) { clearInterval(poll); wireToggle(); }
+  }, 50);
+  setTimeout(() => clearInterval(poll), 3000);
+}
+
+/* ── EASTER EGG ── */
 function initEasterEgg() {
   const TARGET = 'care';
   let buffer = '';
@@ -46,7 +72,10 @@ function initEasterEgg() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  loadComponent('/assets/partials/header.html', 'header-placeholder', setCurrentNavState);
+  loadComponent('/assets/partials/header.html', 'header-placeholder', () => {
+    setCurrentNavState();
+    initNFGMode();
+  });
   loadComponent('/assets/partials/footer.html', 'footer-placeholder');
   initEasterEgg();
 });
