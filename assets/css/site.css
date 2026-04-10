@@ -646,3 +646,36 @@ main {
   text-decoration: none;
 }
 .footer-rss:hover { color: var(--accent); text-decoration: none; }
+
+/* ── NFG TOGGLE MOBILE ── */
+@media (max-width: 640px) {
+  .site-header__inner {
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+    padding: 0.6rem 0;
+  }
+  .brand {
+    flex: 1 0 auto;
+  }
+  .nfg-toggle {
+    order: -1;
+    margin-left: auto;
+    font-size: 0.62rem;
+    padding: 0.28rem 0.6rem;
+  }
+  .site-nav {
+    width: 100%;
+    justify-content: flex-start;
+    order: 2;
+  }
+  .site-nav a {
+    font-size: 0.72rem;
+    padding: 0.4rem 0.55rem;
+  }
+}
+
+/* ── SEE ALL RANTS ── */
+.see-all-rants {
+  padding: 2rem 0 1rem;
+  border-top: 1px solid var(--border);
+}
