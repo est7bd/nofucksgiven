@@ -1,4 +1,12 @@
 User-agent: *
 Allow: /
+Disallow: /404
+
+# Common crawl bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
 
 Sitemap: https://nofucksgiven.org/sitemap.xml

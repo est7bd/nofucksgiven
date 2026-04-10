@@ -1,9 +1,29 @@
+# Global security + SEO headers
 /*
   X-Content-Type-Options: nosniff
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: SAMEORIGIN
   Permissions-Policy: geolocation=(), microphone=(), camera=()
+  X-Robots-Tag: index, follow
 
+# HTML pages — short cache so new rants propagate immediately
+/*.html
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Root HTML pages (no extension via Cloudflare routing)
+/
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/about
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/links
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/rants/*
+  Cache-Control: public, max-age=3600, must-revalidate
+
+# Assets — long cache, cache-busted via ?v= query strings
 /assets/css/*
   Cache-Control: public, max-age=31536000, immutable
 
@@ -13,5 +33,13 @@
 /assets/img/*
   Cache-Control: public, max-age=31536000, immutable
 
+# Partials — never cache, must always be fresh
 /assets/partials/*
   Cache-Control: no-cache, must-revalidate
+
+# Sitemap + robots — short cache
+/sitemap.xml
+  Cache-Control: public, max-age=3600, must-revalidate
+
+/robots.txt
+  Cache-Control: public, max-age=3600, must-revalidate
